@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="dashboard-bg">
+
+<h3 class="mb-4">➕ Add New User</h3>
+
+<a href="{{ url_for('users') }}" class="btn btn-secondary mb-3">
+    ← Back
+</a>
+
+<div class="card shadow border-0" style="max-width:500px;">
+
+    <div class="card-header bg-dark text-white">
+        <i class="fa fa-user-plus"></i> Create User
+    </div>
+
+    <div class="card-body">
+
+        <form method="POST">
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Username</label>
+                <input type="text" name="username"
+                       class="form-control"
+                       placeholder="Enter username" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Password</label>
+                <input type="password" name="password"
+                       class="form-control"
+                       placeholder="Enter password" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Role</label>
+                <select name="role" class="form-select">
+                    <option value="student">🎓 Student</option>
+                    <option value="admin">👑 Admin</option>
+                </select>
+            </div>
+
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary">
+                    ➕ Add User
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+</div>
+
+{% endblock %}

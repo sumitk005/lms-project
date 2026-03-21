@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+body {
+    background: linear-gradient(135deg, #c8f1dc, #a6e3c7);
+}
+
+.dashboard-title {
+    font-size: 28px;
+    font-weight: 600;
+    color: #2f4f4f;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    text-align: center;
+    transition: 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-6px);
+}
+
+.stat-card i {
+    font-size: 28px;
+    color: #4caf50;
+    margin-bottom: 10px;
+}
+
+.stat-card h6 {
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.stat-card h2 {
+    color: #2f4f4f;
+    font-weight: 600;
+}
+
+</style>
+
+<div class="container py-4">
+
+    <div class="dashboard-title">
+        👑 Admin Dashboard
+    </div>
+
+    <div class="row g-4">
+
+        <div class="col-md-3">
+            <div class="stat-card">
+                <i class="fa fa-book"></i>
+                <h6>Total Books</h6>
+                <h2>{{ total_books }}</h2>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="stat-card">
+                <i class="fa fa-book-open"></i>
+                <h6>Issued Books</h6>
+                <h2>{{ total_issued_books }}</h2>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="stat-card">
+                <i class="fa fa-check-circle"></i>
+                <h6>Available Books</h6>
+                <h2>{{ available_books }}</h2>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="stat-card">
+                <i class="fa fa-users"></i>
+                <h6>Total Users</h6>
+                <h2>{{ total_students }}</h2>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="stat-card">
+                <i class="fa fa-money-bill"></i>
+                <h6>Total Fine Collected</h6>
+                <h2>₹ {{ total_fine_collected }}</h2>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="stat-card">
+                <i class="fa fa-exclamation-circle"></i>
+                <h6>Pending Fine</h6>
+                <h2>₹ {{ total_pending_fine or 0 }}</h2>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

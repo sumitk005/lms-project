@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="dashboard-bg">
+
+<h3 class="mb-4">📊 Student Issued Books</h3>
+
+<div class="card shadow border-0 mb-4">
+
+    <div class="card-header bg-dark text-white">
+        <i class="fa fa-filter"></i> Select Student
+    </div>
+
+    <div class="card-body">
+
+        <form method="get" class="row g-2 align-items-center">
+
+            <div class="col-md-6">
+                <select name="student" class="form-select" required>
+                    <option value="">-- Select Student --</option>
+
+                    {% for s in students %}
+                        <option value="{{ s.username }}"
+                        {% if selected_student == s.username %}selected{% endif %}>
+                            {{ s.username }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary">
+                    🔍 View
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+{% if books %}
+<div class="card shadow border-0">
+
+    <div class="card-header bg-dark text-white">
+        <i class="fa fa-book-open"></i> Issued Books
+    </div>
+
+    <div class="card-body">
+
+        <div class="table-responsive">
+        <table class="table table-hover text-center align-middle">
+
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Book Title</th>
+                    <th>Issue Date</th>
+                    <th>Due Date</th>
+                    <th>Return Date</th>
+                    <th>Fine ₹</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for b in books %}
+                <tr {% if b.fine > 0 and b.fine_paid == 0 %}class="table-danger"{% endif %}>
+
+                    <td>{{ loop.index }}</td>
+                    <td class="fw-semibold">{{ b.title }}</td>
+                    <td>{{ b.issue_date }}</td>
+                    <td>{{ b.due_date }}</td>
+
+                    <td>
+                        {% if b.return_date %}
+                            {{ b.return_date }}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+
+                    <!-- ✅ Fine -->
+                    <td>
+                        {% if b.fine > 0 %}
+                            <span class="fw-bold text-danger">₹ {{ b.fine }}</span>
+                        {% else %}
+                            <span class="text-success">₹ 0</span>
+                        {% endif %}
+                    </td>
+
+                    <!-- ✅ Status FIXED -->
+                    <td>
+                        {% if b.fine_paid == 1 %}
+                            <span class="badge bg-success">Paid</span>
+                        {% elif b.fine > 0 %}
+                            <span class="badge bg-danger">Pending</span>
+                        {% else %}
+                            <span class="badge bg-secondary">No Fine</span>
+                        {% endif %}
+                    </td>
+
+                    <!-- ✅ Action FIXED -->
+                    <td>
+                        {% if b.fine_paid == 0 and b.fine > 0 %}
+                            <a href="{{ url_for('mark_fine_paid', issue_id=b.issue_id) }}"
+                               class="btn btn-success btn-sm">
+                               ✔ Pay
+                            </a>
+                        {% else %}
+                            —
+                        {% endif %}
+                    </td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+        </div>
+
+    </div>
+</div>
+{% endif %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="dashboard-bg">
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="fw-bold">📖 Issue Book</h3>
+    </div>
+
+    <div class="card shadow border-0 rounded-4">
+        <div class="card-body p-4">
+
+            <form method="post">
+
+                <!-- ROW 1 -->
+                <div class="row mb-3">
+
+                    <!-- BOOK -->
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Select Book</label>
+                        <select name="book_id" class="form-select" required>
+                            <option value="">-- Select Book --</option>
+                            {% for book in books %}
+                                <option value="{{ book.book_id }}">
+                                    {{ book.title }} ({{ book.author }})
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- STUDENT -->
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Select Student</label>
+                        <select name="issued_to" class="form-select" required>
+                            <option value="">-- Select Student --</option>
+                            {% for s in students %}
+                                <option value="{{ s.username }}">
+                                    {{ s.username }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                </div>
+
+                <!-- ROW 2 -->
+                <div class="row mb-3">
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Issue Date</label>
+                        <input type="date" name="issue_date" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Due Date</label>
+                        <input type="date" name="due_date" class="form-control" required>
+                    </div>
+
+                </div>
+
+                <!-- BUTTON -->
+                <div class="text-end">
+                    <button type="submit" class="btn btn-primary px-4 rounded-3">
+                        📌 Issue Book
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+</div>
+
+{% endblock %}

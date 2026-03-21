@@ -1,0 +1,12 @@
+body {
+    background-color: #f4f6f9;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.card {
+    border-radius: 15px;
+}
+
+.nav-link:hover {
+    text-decoration: underline;
+}

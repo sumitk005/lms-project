@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="dashboard-bg">
+
+<h3 class="mb-4">🔄 Return Book</h3>
+
+<a href="{{ url_for('dashboard') }}" class="btn btn-secondary mb-3">
+    ← Back
+</a>
+
+<div class="card shadow border-0" style="max-width:500px;">
+
+    <div class="card-header bg-dark text-white">
+        <i class="fa fa-undo"></i> Return Book
+    </div>
+
+    <div class="card-body">
+
+        <form method="POST">
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Book ID</label>
+                <input type="number" name="book_id" class="form-control"
+                       placeholder="Enter Book ID" required>
+            </div>
+
+            <div class="d-grid">
+                <button type="submit" class="btn btn-success">
+                    ✔ Return Book
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+</div>
+
+{% endblock %}

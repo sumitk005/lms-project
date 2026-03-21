@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LMS Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            height: 100vh;
+        }
+
+        .left {
+            flex: 1;
+            background: linear-gradient(135deg, #c8f1dc, #a6e3c7);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .left img {
+            width: 70%;
+            max-width: 320px;
+        }
+
+        .left h2 {
+            margin-top: 20px;
+            font-weight: 600;
+            color: #2f4f4f;
+        }
+
+        .left p {
+            margin-top: 10px;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .right {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f8f9fa;
+        }
+
+        .login-box {
+            width: 360px;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .logo {
+            width: 300px;
+            margin-bottom: 15px;
+        }
+
+        .login-box h2 {
+            margin-bottom: 10px;
+            font-weight: 400;
+            color: #2f4f4f;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: #4caf50;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background: #2f4f4f;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            margin-top: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #1f3333;
+        }
+
+        .footer-text {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 13px;
+            color: #777;
+        }
+
+        @media(max-width: 900px) {
+            body {
+                flex-direction: column;
+            }
+            .left {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Left Side -->
+    <div class="left">
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" alt="Illustration">
+        <h2>Library Management System</h2>
+        <p>Manage books, students and track issued records easily.</p>
+    </div>
+
+    <!-- Right Side -->
+    <div class="right">
+        <div class="login-box">
+
+            <!-- 🔥 Logo On Top -->
+            <img src="{{ url_for('static', filename='logo.png') }}" class="logo" alt="Logo">
+
+            <h2>LMS Login</h2>
+
+            <form method="POST">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" name="username" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" name="password" required>
+                </div>
+
+                <button type="submit" class="btn">Sign In</button>
+            </form>
+
+            <div class="footer-text">
+                © 2026 LMS Project
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<html>
+<head>
+    <title>LMS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="navbar">
+        <a href="/">Home</a>
+        <a href="/books">View Books</a>
+        <a href="/issued">Issued Books</a>
+    
+        {% if session.get('role') == 'admin' %}
+            <a href="/add">Add Book</a>
+            <a href="/issue">Issue</a>
+            <a href="/return">Return</a>
+            <a href="/add_user">Add Student</a>
+        {% endif %}
+    
+        <a href="/logout">Logout</a>
+    </div>
+    
+    <div class="container">
+        <h1>Library Management System</h1>
+        <p>Welcome, <b>{{ session.get('user') }}</b></p>
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="dashboard-bg">
+
+<h3 class="mb-4">👥 All Users</h3>
+
+<div class="card shadow border-0">
+
+    <div class="card-header bg-dark text-white">
+        <i class="fa fa-users"></i> Users List
+    </div>
+
+    <div class="card-body">
+
+        <div class="table-responsive">
+        <table class="table table-hover text-center align-middle">
+
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Role</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+
+                    <td class="fw-semibold">
+                        {{ user.username }}
+                    </td>
+
+                    <td>
+                        {% if user.role == "admin" %}
+                            <span class="badge bg-success">Admin</span>
+                        {% else %}
+                            <span class="badge bg-primary">Student</span>
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {% if user.username != session['user'] %}
+                        <a href="/delete_user/{{ user.id }}"
+                           class="btn btn-danger btn-sm"
+                           onclick="return confirm('Delete this user?')">
+                            <i class="fa fa-trash"></i> Delete
+                        </a>
+                        {% else %}
+                            <span class="text-muted">You</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+        </div>
+
+    </div>
+</div>
+
+</div>
+
+{% endblock %}

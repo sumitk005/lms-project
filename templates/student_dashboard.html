@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3 class="mb-4">🎓 Student Dashboard</h3>
+
+<div class="dashboard-bg">
+
+<!-- 🔹 DASHBOARD CARDS -->
+<div class="row g-4 mb-4">
+
+    <div class="col-md-3">
+        <div class="card shadow border-0 text-center">
+            <div class="card-body">
+                <i class="fa fa-book fa-2x text-primary"></i>
+                <h6 class="mt-2">Books Issued</h6>
+                <h3>{{ total_issued }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow border-0 text-center">
+            <div class="card-body">
+                <i class="fa fa-check-circle fa-2x text-success"></i>
+                <h6 class="mt-2">Returned</h6>
+                <h3>{{ total_returned }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow border-0 text-center">
+            <div class="card-body">
+                <i class="fa fa-exclamation-circle fa-2x text-danger"></i>
+                <h6 class="mt-2">Pending</h6>
+                <h3>{{ pending_books }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow border-0 text-center">
+            <div class="card-body">
+                <i class="fa fa-money-bill fa-2x text-warning"></i>
+                <h6 class="mt-2">Total Fine</h6>
+                <h3>₹ {{ total_fine }}</h3>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- 🔹 ISSUED BOOKS TABLE -->
+<div class="card shadow border-0">
+    
+    <div class="card-header bg-dark text-white">
+        📚 My Issued Books
+    </div>
+
+    <div class="card-body">
+
+        {% if my_books and my_books|length > 0 %}
+        <div class="table-responsive">
+        <table class="table table-hover text-center align-middle">
+
+            <thead class="table-dark">
+            <tr>
+                <th>#</th>
+                <th>Book</th>
+                <th>Issue Date</th>
+                <th>Due Date</th>
+                <th>Return Date</th>
+                <th>Fine ₹</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for book in my_books %}
+            <tr {% if book['fine'] > 0 and book['fine_paid'] == 0 %}class="table-danger"{% endif %}>
+
+                <td>{{ loop.index }}</td>
+                <td class="fw-semibold">{{ book['title'] }}</td>
+                <td>{{ book['issue_date'] }}</td>
+                <td>{{ book['due_date'] }}</td>
+
+                <!-- ✅ Return Date -->
+                <td>
+                    {{ book['return_date'] if book['return_date'] else '-' }}
+                </td>
+
+                <!-- ✅ Fine (Styled) -->
+                <td>
+                    {% if book['fine'] > 0 %}
+                        <span class="fw-bold text-danger">₹ {{ book['fine'] }}</span>
+                    {% else %}
+                        <span class="text-success">₹ 0</span>
+                    {% endif %}
+                </td>
+
+                <!-- ✅ FIXED STATUS LOGIC -->
+                <td>
+                    {% if book['fine_paid'] == 1 %}
+                        <span class="badge bg-success">Paid</span>
+                    {% elif book['fine'] > 0 %}
+                        <span class="badge bg-danger">Pending</span>
+                    {% else %}
+                        <span class="badge bg-secondary">No Fine</span>
+                    {% endif %}
+                </td>
+
+            </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+        </div>
+        {% else %}
+            <p class="text-muted text-center">
+                ❌ No books issued yet.
+            </p>
+        {% endif %}
+
+    </div>
+</div>
+
+</div>
+
+{% endblock %}

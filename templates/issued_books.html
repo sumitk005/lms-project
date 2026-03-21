@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="dashboard-bg">
+
+<h3 class="mb-4">📚 Issued Books</h3>
+
+<a href="{{ url_for('dashboard') }}" class="btn btn-secondary mb-3">
+    ← Back
+</a>
+
+<div class="card shadow border-0">
+
+    <div class="card-header bg-dark text-white">
+        <i class="fa fa-book-open"></i> Issued Books List
+    </div>
+
+    <div class="card-body">
+
+        {% if issued and issued|length > 0 %}
+
+        <div class="table-responsive">
+        <table class="table table-hover text-center align-middle">
+
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Book ID</th>
+                    <th>Title</th>
+                    <th>Issued To</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for i in issued %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ i.book_id }}</td>
+                    <td class="fw-semibold">{{ i.title }}</td>
+                    <td>
+                        <span class="badge bg-primary">
+                            {{ i.issued_to }}
+                        </span>
+                    </td>
+                    <td>{{ i.issue_date }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+        </div>
+
+        {% else %}
+            <p class="text-center text-muted">
+                ❌ No issued books found
+            </p>
+        {% endif %}
+
+    </div>
+</div>
+
+</div>
+
+{% endblock %}
