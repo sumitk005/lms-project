@@ -55,7 +55,9 @@ def login():
         password = request.form["password"]
 
         conn = get_db()
-        user = conn.execute(
+        cursor = conn.cursor()
+        
+        user = cursor.execute(
             "SELECT * FROM users WHERE username=? AND password=?",
             (username, password)
         ).fetchone()
@@ -70,9 +72,8 @@ def login():
             else:
                 return redirect(url_for("student_dashboard"))
 
-        return "Invalid Login"
-
-    return render_template("login.html")
+    
+    return render_template("login.html",error="Invalid login")
 
 # ---------------- LOGOUT ----------------
 @app.route("/logout")
@@ -400,4 +401,4 @@ def add_user():
 
 # ---------------- RUN ----------------
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
