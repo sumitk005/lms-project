@@ -10,8 +10,23 @@
         <h3 class="fw-bold">📚 All Books</h3>
     </div>
 
+    <!-- 🔍 SEARCH BAR -->
+    <form method="get" class="mb-3 d-flex">
+        <input type="text" name="search" class="form-control me-2"
+               placeholder="🔍 Search by title or author"
+               value="{{ search }}">
+        
+        <button type="submit" class="btn btn-primary">
+            Search
+        </button>
+    </form>
+
     <div class="card shadow">
         <div class="card-body">
+
+            {% if books|length == 0 %}
+                <p class="text-danger text-center">❌ No books found</p>
+            {% endif %}
 
             <table class="table table-hover table-bordered text-center align-middle">
                 <thead class="table-dark">

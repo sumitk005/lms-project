@@ -113,10 +113,21 @@ def view_books():
     if "username" not in session:
         return redirect(url_for("login"))
 
+    search = request.args.get("search", "")
+
     conn = get_db()
-    books = conn.execute("SELECT * FROM books").fetchall()
+
+    if search:
+        books = conn.execute("""
+            SELECT * FROM books
+            WHERE title LIKE ? OR author LIKE ?
+        """, ('%' + search + '%', '%' + search + '%')).fetchall()
+    else:
+        books = conn.execute("SELECT * FROM books").fetchall()
+
     conn.close()
-    return render_template("view_books.html", books=books)
+
+    return render_template("view_books.html", books=books, search=search)
 
 # ---------------- ISSUE BOOK ----------------
 @app.route("/issue", methods=["GET", "POST"])
@@ -494,12 +505,8 @@ def add_real_books_safe():
             )
 
     conn.commit()
-    conn.close()
-
-    print("✅ Real books inserted safely!")
+    conn.close() 
     
-add_real_books_safe()
-
 # ---------------- RUN ----------------
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT",10000)))
