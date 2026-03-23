@@ -400,6 +400,106 @@ def add_user():
 
     return render_template("add_user.html")
 
+def add_real_books_safe():
+    conn = get_db()
+    cursor = conn.cursor()
+
+    books = [
+        ("The Alchemist", "Paulo Coelho"),
+        ("Harry Potter 1", "J.K. Rowling"),
+        ("Harry Potter 2", "J.K. Rowling"),
+        ("Harry Potter 3", "J.K. Rowling"),
+        ("The Hobbit", "J.R.R. Tolkien"),
+        ("The Lord of the Rings", "J.R.R. Tolkien"),
+        ("1984", "George Orwell"),
+        ("Animal Farm", "George Orwell"),
+        ("The Great Gatsby", "F. Scott Fitzgerald"),
+        ("To Kill a Mockingbird", "Harper Lee"),
+        ("Pride and Prejudice", "Jane Austen"),
+        ("Moby Dick", "Herman Melville"),
+        ("War and Peace", "Leo Tolstoy"),
+        ("Crime and Punishment", "Dostoevsky"),
+        ("Brave New World", "Aldous Huxley"),
+        ("The Kite Runner", "Khaled Hosseini"),
+        ("The Book Thief", "Markus Zusak"),
+        ("The Da Vinci Code", "Dan Brown"),
+        ("Inferno", "Dan Brown"),
+        ("Angels and Demons", "Dan Brown"),
+        ("Digital Fortress", "Dan Brown"),
+        ("Deception Point", "Dan Brown"),
+        ("The Hunger Games", "Suzanne Collins"),
+        ("Catching Fire", "Suzanne Collins"),
+        ("Mockingjay", "Suzanne Collins"),
+        ("Twilight", "Stephenie Meyer"),
+        ("New Moon", "Stephenie Meyer"),
+        ("Eclipse", "Stephenie Meyer"),
+        ("Breaking Dawn", "Stephenie Meyer"),
+        ("The Fault in Our Stars", "John Green"),
+        ("Looking for Alaska", "John Green"),
+        ("Paper Towns", "John Green"),
+        ("Rich Dad Poor Dad", "Robert Kiyosaki"),
+        ("Think and Grow Rich", "Napoleon Hill"),
+        ("Atomic Habits", "James Clear"),
+        ("Ikigai", "Hector Garcia"),
+        ("Deep Work", "Cal Newport"),
+        ("Zero to One", "Peter Thiel"),
+        ("The Lean Startup", "Eric Ries"),
+        ("Sapiens", "Yuval Noah Harari"),
+        ("Homo Deus", "Yuval Noah Harari"),
+        ("The Psychology of Money", "Morgan Housel"),
+        ("Can't Hurt Me", "David Goggins"),
+        ("The Subtle Art of Not Giving a F*ck", "Mark Manson"),
+        ("The 7 Habits", "Stephen Covey"),
+        ("How to Win Friends", "Dale Carnegie"),
+        ("The Monk Who Sold His Ferrari", "Robin Sharma"),
+        ("Wings of Fire", "A.P.J Abdul Kalam"),
+        ("Ignited Minds", "A.P.J Abdul Kalam"),
+        ("India 2020", "A.P.J Abdul Kalam"),
+        ("The White Tiger", "Aravind Adiga"),
+        ("Train to Pakistan", "Khushwant Singh"),
+        ("The Guide", "R.K Narayan"),
+        ("Malgudi Days", "R.K Narayan"),
+        ("Gitanjali", "Rabindranath Tagore"),
+        ("Godan", "Premchand"),
+        ("Half Girlfriend", "Chetan Bhagat"),
+        ("2 States", "Chetan Bhagat"),
+        ("Five Point Someone", "Chetan Bhagat"),
+        ("One Night @ Call Center", "Chetan Bhagat"),
+        ("3 Mistakes of My Life", "Chetan Bhagat"),
+        ("Immortals of Meluha", "Amish Tripathi"),
+        ("Secret of Nagas", "Amish Tripathi"),
+        ("Oath of Vayuputras", "Amish Tripathi"),
+        ("Sita: Warrior of Mithila", "Amish Tripathi"),
+        ("Raavan", "Amish Tripathi"),
+        ("The Hidden Hindu", "Akshat Gupta"),
+        ("Life's Amazing Secrets", "Gaur Gopal Das"),
+        ("Do Epic Shit", "Ankur Warikoo"),
+        ("Get Epic Shit Done", "Ankur Warikoo"),
+        ("You Can Win", "Shiv Khera"),
+        ("Stay Hungry Stay Foolish", "Rashmi Bansal"),
+        ("The Namesake", "Jhumpa Lahiri"),
+        ("Interpreter of Maladies", "Jhumpa Lahiri"),
+        ("A Suitable Boy", "Vikram Seth"),
+        ("The Palace of Illusions", "Chitra Banerjee"),
+    ]
+
+    # Check existing books (duplicate avoid)
+    existing_titles = [row[0] for row in cursor.execute("SELECT title FROM books").fetchall()]
+
+    for title, author in books:
+        if title not in existing_titles:
+            cursor.execute(
+                "INSERT INTO books (title, author, status) VALUES (?, ?, ?)",
+                (title, author, "Available")
+            )
+
+    conn.commit()
+    conn.close()
+
+    print("✅ Real books inserted safely!")
+    
+add_real_books_safe()
+
 # ---------------- RUN ----------------
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT",10000)))
