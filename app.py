@@ -507,6 +507,11 @@ def add_real_books_safe():
     conn.commit()
     conn.close() 
     
+@app.route("/load-books")
+def load_books():
+    add_real_books_safe()
+    return "Books Added Successfully"
+    
 # ---------------- RUN ----------------
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT",10000)))
