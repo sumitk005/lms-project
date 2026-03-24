@@ -506,7 +506,6 @@ def add_real_books_safe():
 
     conn.commit()
     conn.close() 
-add_real_books_safe()
 # ---------------- RUN ----------------
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT",10000)))
