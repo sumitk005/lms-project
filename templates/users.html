@@ -43,12 +43,12 @@
                     </td>
 
                     <td>
-                        {% if user.username != session['user'] %}
-                        <a href="/delete_user/{{ user.id }}"
-                           class="btn btn-danger btn-sm"
-                           onclick="return confirm('Delete this user?')">
+                        {% if user.username != session['username'] %}
+                            <a href="{{ url_for('delete_user', user_id=user.id) }}" 
+                            class="btn btn-danger btn-sm"
+                            onclick="return confirm('Delete this user?')">
                             <i class="fa fa-trash"></i> Delete
-                        </a>
+                            </a>
                         {% else %}
                             <span class="text-muted">You</span>
                         {% endif %}
